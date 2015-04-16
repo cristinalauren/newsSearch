@@ -1,13 +1,13 @@
 var db = require('./models'),
-    express = require('express'),
-    sequelize=require('sequelize'),
-    session = require('express-session'),
-    bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
-    pg = require('pg'),
-    ejs = require('ejs'),
-    request = require('request'),
-    app = express();
+express = require('express'),
+sequelize=require('sequelize'),
+session = require('express-session'),
+bodyParser = require('body-parser'),
+methodOverride = require('method-override'),
+pg = require('pg'),
+ejs = require('ejs'),
+request = require('request'),
+app = express();
 
 app.set("view engine", "ejs");
 
@@ -22,21 +22,21 @@ app.use(session({
   }}));
 
 app.use("/", function(req, res, next) {
-    req.login = function(user) {
-        req.session.userId = user.id;
-    };
-    req.currentUser = function() {
-        return db.User.find(req.session.userId)
-            .then(function(dbuser) {
-                req.user = dbuser;
-                return dbuser;
-            });
-    };
-    req.logout = function() {
-        req.session.userId = null;
-        req.user = null;
-    };
-    next();
+  req.login = function(user) {
+    req.session.userId = user.id;
+  };
+  req.currentUser = function() {
+    return db.User.find(req.session.userId)
+    .then(function(dbuser) {
+      req.user = dbuser;
+      return dbuser;
+    });
+  };
+  req.logout = function() {
+    req.session.userId = null;
+    req.user = null;
+  };
+  next();
 });
 
 app.get("/", function(req, res){
@@ -48,7 +48,7 @@ app.get("/", function(req, res){
 // });
 
 app.get('/register', function(req, res) {
-    res.render("register");
+  res.render("register");
 });
 
 app.get('/articles', function(req, res){
@@ -62,16 +62,16 @@ app.get('/articles', function(req, res){
         var articles = JSON.parse(body).response.docs;
         var articleList = [];
         articles.forEach(function(article){
-                var articleTemp = {};
-                articleTemp.title = article.headline.main;
-                articleTemp.url = article.web_url;
-                articleTemp.date = article.pub_date;
-                articleTemp.summary = article.snippet;
-                articleTemp.source = article.source;
+          var articleTemp = {};
+          articleTemp.title = article.headline.main;
+          articleTemp.url = article.web_url;
+          articleTemp.date = article.pub_date;
+          articleTemp.summary = article.snippet;
+          articleTemp.source = article.source;
 
-                console.log("make nytimes article for " + q);
-                articleList.push(articleTemp);
-              });
+          console.log("make nytimes article for " + q);
+          articleList.push(articleTemp);
+        });
         // console.log(articles);
         res.render('articles', { articles: articleList });
       } else {
@@ -86,43 +86,39 @@ app.get('/articles', function(req, res){
 app.post('/register', function(req,res){
   var email = req.body.email;
   var password = req.body.password;
-  db.User.createSecure(email,password)
-    .then(function(user){
-      res.redirect('login');
-    });});
-
-app.get('/login', function(req, res) {
-    res.render("login");
+  db.User.createSecure(email,password).then(function(user){
+    res.redirect('login');
+  });
 });
 
 app.get('/login', function(req,res){
-        req.currentUser().then(function(user){
-        if (user) {
-        res.redirect('/articles');
-        } else {
-        res.render("/register");
-        }
-       });
-       });
+  req.currentUser().then(function(user){
+    if (user) {
+      res.redirect('/articles');
+    } else {
+      res.render("login");
+    }
+  });
+});
 
 app.post('/login', function(req,res){
   var email = req.body.email;
   var password = req.body.password;
-  db.User.authenticate(email,password)
-    .then(function(dbuser){
-      if(dbuser) {
-        req.login(dbuser);
-        res.redirect('articles');
-        };
-        })})
 
-app.post("/login", function (req, res) {
-  var user = req.body.user;
-  db.User.authenticate(email, password)
-    .then(function (user) {
-          res.send(user);
-    });
-});
+  // console.log('here!');
+
+  // db.User.authenticate(email,password).then(function(dbuser){
+  //   console.log(dbUser);
+
+  //   if(dbuser) {
+  //     req.login(dbuser);
+  //     res.redirect('articles');
+  //   };
+  // });
+
+  req.session.userId = 1;
+  res.redirect('/articles');
+})
 
 app.get('/favorites',function (req,res){
   res.render ("favorites")
@@ -134,5 +130,5 @@ app.get("/logout", function(req, res){
 });
 
 app.listen(3000,function(){
-    console.log("SERVER RUNNING");
-    });
+  console.log("SERVER RUNNING");
+});
