@@ -5,16 +5,18 @@
   <meta charset="UTF-8">
   <title>Favorites</title>
 </head>
-<body>
-  <h1>List of Articles</h1>
-
   <body>
-  <div class="container">
-    <div>
-      <a href="/articles">Search</a>
-    </div>
-    <form method="POST" action="/logout?_method=DELETE">
-      <button>Logout</button>
 
-</body>
+    <h1>List of Articles</h1>
+
+      <div class="container">
+        <div>
+          <a href="/articles">Search</a>
+        </div>
+        <form method="GET" action="/logout">
+          <button type="submit">Logout</button>
+        </form>
+      </div>
+
+  </body>
 </html>

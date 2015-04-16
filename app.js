@@ -43,39 +43,44 @@ app.get("/", function(req, res){
   res.render('index');
 });
 
-app.get('/articles', function(req, res) {
-    res.render('articles');
-});
+// app.get('/articles', function(req, res) {
+//     res.render('articles');
+// });
 
 app.get('/register', function(req, res) {
     res.render("register");
 });
 
 app.get('/articles', function(req, res){
-  var searchTerm = req.query.search;
-  var nytUrl = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + searchTerm + "&api-key=367dc8071434763a60f4fedafb8ee3a9:6:71461120";
+  var q = req.query.search;
 
-  request(nytUrl, function(err, response, body){
-    if(!err && response.statusCode === 200) {
-      var newsArticles = JSON.parse(body).response.docs;
-      newsArticles.forEach(function(article){
-              var articleTemp = {};
-              articleTemp.title = article.headline.main;
-              articleTemp.url = article.web_url;
-              articleTemp.date = article.pub_date;
-              articleTemp.summary = article.snippet;
-              articleTemp.source = article.source;
-              articleTemp.twitter = "@nytimes";
-              articleTemp.keyword = searchTerm;
-              console.log("make nytimes article for " + searchTerm);
-              articleList.push(articleTemp);
-            });
-      // console.log(newsArticles);
-      res.render('articles', {articles: newsArticles});
-    } else {
-      console.log("ERROR WILL ROBINSON!!");
-    }
-  });
+  if (q) {
+    var nytimesUrl = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + q + "&api-key=367dc8071434763a60f4fedafb8ee3a9:6:71461120";
+
+    request(nytimesUrl, function(err, response, body){
+      if(!err && response.statusCode === 200) {
+        var articles = JSON.parse(body).response.docs;
+        var articleList = [];
+        articles.forEach(function(article){
+                var articleTemp = {};
+                articleTemp.title = article.headline.main;
+                articleTemp.url = article.web_url;
+                articleTemp.date = article.pub_date;
+                articleTemp.summary = article.snippet;
+                articleTemp.source = article.source;
+
+                console.log("make nytimes article for " + q);
+                articleList.push(articleTemp);
+              });
+        // console.log(articles);
+        res.render('articles', { articles: articleList });
+      } else {
+        console.log("ERROR WILL ROBINSON!!");
+      }
+    });
+  } else {
+    res.render('articles', { articles: [] });
+  }
 });
 
 app.post('/register', function(req,res){
@@ -121,7 +126,12 @@ app.post("/login", function (req, res) {
 
 app.get('/favorites',function (req,res){
   res.render ("favorites")
-})
+});
+
+app.get("/logout", function(req, res){
+  req.logout();
+  res.redirect("login");
+});
 
 app.listen(3000,function(){
     console.log("SERVER RUNNING");

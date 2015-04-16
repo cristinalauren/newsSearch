@@ -8,20 +8,31 @@
 <body>
 
 <div class="container">
-    <div>
-      <a href="/login">Login</a>
-      <a href="/register">Register</a>
-      <a href="/favorites">Favorites</a>
+  <div>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+    <a href="/favorites">Favorites</a>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+      <form class="myForm" method="GET" action="/articles">
+        <input type="text" name="search" placeholder="Search">
+        <button type="submit">Submit</button>
+      </form>
     </div>
 
-    <div class="row">
-      <div class="col-xs-6 col-xs-offset-3">
-        <form class="myForm" method="GET" action="/articles">
-          <input type="text" name="search" placeholder="Search">
-          <button type="submit">Submit</button>
-        </form>
+    <% articles.forEach(function (article){ %>
+      <div class="articlediv">
+          <h4><a href="<%= article.url %>"><%=article.title%></a></h4>
+          <br> <%=article.date%> <br> <%= article.source %>
+            <% if (article.summary !== undefined) {%>
+              <p>"<%= article.summary %>"</p>
+            <% } %>
+            <br><br>Keyword: <%= article.keyword %>
       </div>
-
-
+    <% })%>
+  </div>
+</div>
 </body>
 </html>
