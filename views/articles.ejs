@@ -9,11 +9,11 @@
 
 <div class="container">
   <div>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
     <a href="/favorites">Favorites</a>
   </div>
-
+    <form method="POST" action="/logout?_method=DELETE">
+          <button>Logout</button>
+        </form>
   <div class="row">
     <div class="col-xs-6 col-xs-offset-3">
       <form class="myForm" method="GET" action="/articles">
@@ -30,6 +30,26 @@
               <p>"<%= article.summary %>"</p>
             <% } %>
             <br><br>Keyword: <%= article.keyword %>
+
+  <div class="container">
+    <div>
+      <a href="/favorites">Profile</a>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">Title: <%= article.title%> </div>
+      <div class="col-xs-6">Summary: <%= article.summary %> </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <form class=="myfavorite" method="POST" action="/favorites">
+          <input type="text" name="favorite" style="display: none;"
+                 value="<%= article.title%>" name="title">
+          <button>Favorite</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
       </div>
     <% })%>
   </div>

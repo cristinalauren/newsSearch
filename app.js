@@ -117,8 +117,8 @@ app.post('/login', function(req,res){
   // });
 
   req.session.userId = 1;
-  res.redirect('/articles');
-})
+  res.redirect('/articles')
+});
 
 app.get('/favorites',function (req,res){
   res.render ("favorites")
@@ -128,6 +128,19 @@ app.get("/logout", function(req, res){
   req.logout();
   res.redirect("login");
 });
+app.get("/register", function(req, res){
+  req.logout();
+  res.redirect("register");
+});
+
+app.delete('/logout', function(req,res){
+    req.logout();
+    res.redirect('login');
+});
+app.post('/favorites', function(req,res){
+
+    res.redirect('favorites');
+  });
 
 app.listen(3000,function(){
   console.log("SERVER RUNNING");
