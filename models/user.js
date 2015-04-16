@@ -1,5 +1,3 @@
-"use strict";
-
 var bcrypt = require("bcrypt");
 var salt = bcrypt.genSaltSync(10);
 
@@ -42,6 +40,7 @@ module.exports = function (sequelize, DataTypes){
 
       },
       authenticate: function(email, password) {
+        // find a user in the DB
         return this.find({
           where: {
             email: email
@@ -53,17 +52,10 @@ module.exports = function (sequelize, DataTypes){
           }
           else if (user.checkPassword(password)){
             return user;
-          } else {
-            return false
           }
 
         });
-      },
-      associate: function(models) {
-        this.hasMany(models.Favorite);
-        // associations can be defined here
       }
-
 
     } // close classMethods
   }); // close define user
