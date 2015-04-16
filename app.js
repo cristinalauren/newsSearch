@@ -139,8 +139,7 @@ app.delete('/logout', function(req,res){
 });
 app.post('/favorites', function(req,res){
 
-    res.redirect('favorites');
-  });
+
 
 app.listen(3000,function(){
   console.log("SERVER RUNNING");
