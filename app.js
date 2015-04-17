@@ -69,6 +69,7 @@ app.get('/articles', function(req, res){
           articleTemp.summary = article.snippet;
           articleTemp.source = article.source;
 
+          // db.favorite.add()
           console.log("make nytimes article for " + q);
           articleList.push(articleTemp);
         });
@@ -105,24 +106,22 @@ app.post('/login', function(req,res){
   var email = req.body.email;
   var password = req.body.password;
 
-  // console.log('here!');
+  console.log('here!');
 
-  // db.User.authenticate(email,password).then(function(dbuser){
-  //   console.log(dbUser);
+  db.User.authenticate(email,password).then(function(dbuser){
+    console.log("WHAT THE FUCK IS THE USER??? THIS: "+dbuser);
 
-  //   if(dbuser) {
-  //     req.login(dbuser);
-  //     res.redirect('articles');
-  //   };
-  // });
+    if(dbuser) {
+      req.login(dbuser);
+      res.redirect('articles');
+    };
+  });
 
-  req.session.userId = 1;
-  res.redirect('/articles')
+  //req.session.userId = 1;
+  //res.redirect('/articles')
 });
 
-app.get('/favorites',function (req,res){
-  res.render ("favorites")
-});
+
 
 app.get("/logout", function(req, res){
   req.logout();
@@ -137,9 +136,31 @@ app.delete('/logout', function(req,res){
     req.logout();
     res.redirect('login');
 });
+
+app.get('/favorites',function (req,res){
+  req.currentUser().then(function(user){
+      res.render ("favorites");
+  });
+});
+
+
+
 app.post('/favorites', function(req,res){
+  req.currentUser().then(function(user){
+    console.log(user);
+    db.Favorite.create({
+      title: req.body.title,
+      content: req.body.summary,
+      UserId: user.id
+    }).then(function(art){
+        db.Favorite.findAll({where: {UserId: user.id}}).then(function(arts){
+                  res.render('favorites',{artS: arts});
+        });
+    });
+  });
 
 
+});
 
 app.listen(3000,function(){
   console.log("SERVER RUNNING");

@@ -26,7 +26,8 @@ module.exports = function (sequelize, DataTypes){
     },
     classMethods: {
       associate: function(models) {
-      this.belongsTo(models.User);
+      //this.belongsTo(models.User);
+      this.hasMany(models.Favorite);
       },
       encryptPassword: function(password) {
         var hash = bcrypt.hashSync(password, salt);

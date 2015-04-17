@@ -13,6 +13,16 @@
         <div>
           <a href="/articles">Search</a>
         </div>
+
+          <div> Batman </div>
+          <% for(var i =0;i<artS.length;i++){  %>
+      <div>
+        <%= artS[i].title  %>
+      </div></br>
+      <div>
+        <%= artS[i].content %>
+      </div>
+      <% }  %>
         <form method="GET" action="/logout">
           <button type="submit">Logout</button>
         </form>

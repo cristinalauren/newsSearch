@@ -42,8 +42,9 @@
     <div class="row">
       <div class="col-xs-12">
         <form class=="myfavorite" method="POST" action="/favorites">
-          <input type="text" name="favorite" style="display: none;"
-                 value="<%= article.title%>" name="title">
+          <input type="text" name="title" style="display: none;" value="<%= article.title%>">
+                 <input type="text" name="summary" style="display: none;"
+                 value="<%= article.summary%>">
           <button>Favorite</button>
         </form>
       </div>

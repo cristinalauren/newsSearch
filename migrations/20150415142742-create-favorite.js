@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: function(migration, DataTypes, done) {
-    migration.createTable("Favorite", {
+    migration.createTable("Favorites", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,13 +11,10 @@ module.exports = {
       title: {
         type: DataTypes.STRING
       },
-      URL: {
+      url: {
         type: DataTypes.STRING
       },
-      article_id: {
-        type: DataTypes.STRING
-      },
-      date: {
+      content: {
         type: DataTypes.STRING
       },
       UserId: {

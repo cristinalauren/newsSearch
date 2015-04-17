@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: function(migration, DataTypes, done) {
-    migration.createTable("User", {
+    migration.createTable("Users", {
       id: {
         allowNull: false,
         autoIncrement: true,
