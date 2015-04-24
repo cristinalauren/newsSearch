@@ -1,32 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Favorites</title>
-</head>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Favorites</title>
+  </head>
+
   <body>
 
-    <h1>List of Articles</h1>
+    <h1>List of Favorite Articles</h1>
 
-      <div class="container">
-        <div>
-          <a href="/articles">Search</a>
-        </div>
-
-          <div> Batman </div>
-          <% for(var i =0;i<artS.length;i++){  %>
+    <div class="container">
       <div>
-        <%= artS[i].title  %>
-      </div></br>
-      <div>
-        <%= artS[i].content %>
+        <!--link to return to previous page, which is the articles page that allows the user to perform another search:-->
+        <a href="/articles">Search</a>
       </div>
-      <% }  %>
+
+      <div> Batman </div>
+      <% for(var i =0;i<artS.length;i++){  %>
+        <div>
+          <%= artS[i].title  %>
+        </div></br>
+        <div>
+          <%= artS[i].content %>
+        </div>
+        <% }  %>
+
+        <!--button to logout-->
         <form method="GET" action="/logout">
           <button type="submit">Logout</button>
         </form>
-      </div>
 
-  </body>
-</html>
+      </div>
+    </body>
+  </html>

@@ -1,0 +1,12 @@
+Open Items:
+
+1.link to favorites from article page doesnt work, says artS is unefined, however, the when a user posts an article to favorites from that same page, the favorites page can be accessed.
+
+2.something is wierd with the current user/login; instead of running forever should include an error message.
+
+3. Need to add URL link to favorites list so its actually useful
+
+4. Need to add Style
+
+5. Need to remove "profile button" from search results, which is currently attempting to link to favorites
+6. Deploy on Heroku

@@ -1,59 +1,71 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Article Search</title>
-</head>
-<body>
 
-<div class="container">
-  <div>
-    <a href="/favorites">Favorites</a>
-  </div>
-    <form method="POST" action="/logout?_method=DELETE">
-          <button>Logout</button>
-        </form>
-  <div class="row">
-    <div class="col-xs-6 col-xs-offset-3">
-      <form class="myForm" method="GET" action="/articles">
-        <input type="text" name="search" placeholder="Search">
-        <button type="submit">Submit</button>
+  <head>
+    <meta charset="UTF-8">
+    <title>Article Search</title>
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div>
+        <!--currently not working link to favorites page:-->
+        <a href="/favorites">Favorites</a>
+      </div>
+
+      <!--logout button-->
+      <form method="POST" action="/logout?_method=DELETE">
+        <button>Logout</button>
       </form>
-    </div>
 
-    <% articles.forEach(function (article){ %>
-      <div class="articlediv">
+      <!--keyword search field and submit button-->
+      <div class="row">
+
+        <div class="col-xs-6 col-xs-offset-3">
+          <form class="myForm" method="GET" action="/articles">
+            <input type="text" name="search" placeholder="Search">
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+
+        <!--Based on keyword, Javascript pulls articles and details:-->
+        <% articles.forEach(function(article){ %>
+        <div class="articlediv">
           <h4><a href="<%= article.url %>"><%=article.title%></a></h4>
           <br> <%=article.date%> <br> <%= article.source %>
-            <% if (article.summary !== undefined) {%>
-              <p>"<%= article.summary %>"</p>
-            <% } %>
-            <br><br>Keyword: <%= article.keyword %>
+          <% if (article.summary !== undefined) {%>
+          <p>"<%= article.summary %>"</p>
+          <% } %>
+          <br><br>Keyword: <%= article.keyword %>
 
-  <div class="container">
-    <div>
-      <a href="/favorites">Profile</a>
-    </div>
-    <div class="row">
-      <div class="col-xs-6">Title: <%= article.title%> </div>
-      <div class="col-xs-6">Summary: <%= article.summary %> </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
-        <form class=="myfavorite" method="POST" action="/favorites">
-          <input type="text" name="title" style="display: none;" value="<%= article.title%>">
-                 <input type="text" name="summary" style="display: none;"
-                 value="<%= article.summary%>">
-          <button>Favorite</button>
-        </form>
+          <div class="container">
+
+            <div>
+              <a href="/favorites">Profile</a>
+            </div>
+
+            <!--display results of query-->
+            <div class="row">
+              <div class="col-xs-6">Title: <%= article.title%> </div>
+              <div class="col-xs-6">Summary: <%= article.summary %> </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <!--button to post article to favorites-->
+                <form class=="myfavorite" method="POST" action="/favorites">
+                  <input type="text" name="title" style="display: none;" value="<%= article.title%>">
+                  <input type="text" name="summary" style="display: none;"
+                  value="<%= article.summary%>">
+                  <button>Favorite</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% })%>
       </div>
     </div>
-  </div>
-
-      </div>
-    <% })%>
-  </div>
-</div>
-</body>
+  </body>
 </html>
