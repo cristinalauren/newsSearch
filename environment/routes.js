@@ -1,52 +1,4 @@
-var db = require('./models'),
-    express = require('express'),
-    sequelize = require('sequelize'),
-    session = require('express-session'),
-    bodyParser = require('body-parser'),
-    methodOverride = require('method-override'),
-    pg = require('pg'),
-    ejs = require('ejs'),
-    request = require('request'),
-    app = express();
-
-app.set("view engine", "ejs");
-
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-app.use(methodOverride("_method"));
-app.use(express.static('public'));
-app.use(session({
-    secret: 'super secret',
-    resave: false,
-    save: {
-        uninitialize: true
-    }
-}));
-
-//sets up sessions
-app.use("/", function(req, res, next) {
-    req.login = function(user) {
-        req.session.userId = user.id;
-    };
-    req.currentUser = function() {
-        return db.User.find(req.session.userId)
-            .then(function(dbuser) {
-                req.user = dbuser;
-                return dbuser;
-            });
-    };
-    req.logout = function() {
-        req.session.userId = null;
-        req.user = null;
-    };
-    next();
-});
-
-
-// require("./environment/routes.js")
-
-// require('./require.js')
+require('./require.js')
 
 //Routes
 
@@ -156,13 +108,9 @@ app.delete('/logout', function(req, res) {
 //this isnt WORKING!!!
 app.get('/favorites', function(req, res) {
     req.currentUser().then(function(user) {
-        if(user) {
-            user.getFavorites().then(function(dbArticles) {
-                res.render('favorites', {articles: dbArticles})
-            })
-        } else {
-            res.redirect('/login');
-        }
+        user.getFavorites().then(function(dbArticles) {
+            res.render('favorites', {articles: dbArticles})
+        })
 
     });
 });
@@ -182,10 +130,4 @@ app.post('/favorites', function(req, res) {
             res.redirect('/favorites');
         });
     });
-});
-
-
-
-app.listen(3000, function() {
-    console.log("SERVER RUNNING");
 });

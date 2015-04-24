@@ -17,12 +17,12 @@
       </div>
 
       <div> Batman </div>
-      <% for(var i =0;i<artS.length;i++){  %>
+      <% for(var i =0;i<articles.length;i++){  %>
         <div>
-          <%= artS[i].title  %>
+          <a href="<%= articles[i].url  %>"><%= articles[i].title  %></a>
         </div></br>
         <div>
-          <%= artS[i].content %>
+          <%= articles[i].content %>
         </div>
         <% }  %>
 
