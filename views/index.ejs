@@ -2,23 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <!-- jQuery library -->
+    <title>Article Search</title>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<link href="/css/style.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="/public/css/style.css"/>
+<link href="public/css/style.css"/  >
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   </head>
   <body>
-    <title>Article Search</title>
-    <h1> Article Search </h1>
-    <div>
+    <div id="header"
+      <h1> Article Search </h1>
+      <br>
+    </div>
+    <br>
+    <div id="welcome">
+      <p>Welcome! articleSearch is an app that allows you to perform a keyword search for New York Times articles on a given topic, view a list of results that include the article URL, title, summary and publishing date which can be saved individually to a list of favorites.</p>
+    </div>
+    <br>
+    <div id="login">
       <p>Please login to begin search or register to sign-up</p>
     </div>
-    <div class="container">
-      <div>
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
-      </div>
-    </body>
-  </html>
+    <div id="container">
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+    </div>
+  </body>
+</html>

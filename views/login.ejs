@@ -3,13 +3,24 @@
   <head>
     <meta charset="UTF-8">
     <title>Sign In</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/public/css/style.css"/>
+    <link href="public/css/style.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   </head>
   <body>
+  <div id="form">
     <form method="POST" action="/login">
       <input type="text" name= "email" placeholder= "email">
       <input type="password" name= "password" placeholder="password">
       <button>Sign Me In</button>
     </form>
-    <a href="/register">Don't have an account? Create one here</a>
+    </div>
+    <div id="register">
+      <a href="/register">Don't have an account? Create one here</a>
+    </div>
   </body>
 </html>

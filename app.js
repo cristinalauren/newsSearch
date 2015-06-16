@@ -7,9 +7,14 @@ var db = require('./models'),
     pg = require('pg'),
     ejs = require('ejs'),
     request = require('request'),
+    ejsHelper = require('ejs-helper'),
     app = express();
 
 app.set("view engine", "ejs");
+app.use(ejsHelper({
+    cssPath: '/public/css/'
+}));
+app.use(express.static('newsSearch/public'));
 
 app.use(bodyParser.urlencoded({
     extended: true

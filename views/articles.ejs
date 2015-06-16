@@ -31,19 +31,20 @@
 
         <!--Based on keyword, Javascript pulls articles and details:-->
         <% articles.forEach(function(article){ %>
-        <div class="articlediv">
+        <div class="container">
           <h4><a href="<%= article.url %>"><%=article.title%></a></h4>
-          <br> <%=article.date%> <br> <%= article.source %>
+          <%=article.date%> <br> <%= article.source %>
           <% if (article.summary !== undefined) {%>
           <p>"<%= article.summary %>"</p>
           <% } %>
-          <br><br>Keyword: <%= article.keyword %>
+          <%= article.keyword %>
+          </div>
 
           <div class="container">
 
-            <div>
-              <a href="/favorites">Profile</a>
-            </div>
+           <!--  <div>
+              <a href="/favorites">Favorites List</a>
+            </div> -->
 
             <!--display results of query-->
             <div class="row">
@@ -59,7 +60,7 @@
                   <input type="text" name="summary" style="display: none;"
                   value="<%= article.summary%>">
                   <input type="hidden" name="url" value="<%= article.url  %>">
-                  <button>Favorite</button>
+                  <button>Add to Favorites</button>
                 </form>
               </div>
             </div>
