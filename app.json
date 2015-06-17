@@ -1,0 +1,10 @@
+{
+  "name":"newsSearch",
+  "description":"",
+  "scripts":{
+    "postdeploy":"setup",
+    "pr-predestroy":"teardown"
+  },
+  "env":{},
+  "addons":[]
+}
